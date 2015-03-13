@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command.c                                       :+:      :+:    :+:   */
+/*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 14:42:41 by etermeau          #+#    #+#             */
-/*   Updated: 2015/03/04 14:42:45 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/13 13:36:36 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/13 13:42:11 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include "ft_sh1.h"
 
-void	ft_command(t_env *env, char *line)
+int		ft_count_word(char *line)
 {
-	t_env	*top;
-	char	*tmp;
-	char 	*tmp_2;
-	int		status;
+	int	i;
+	int	word;
 
-	top = env;
-	tmp = ft_strcdup(line, ' ');
-	tmp_2 = ft_strchr(line, ' ');
-	free(line);
-	if (ft_strcmp(tmp, "env") == 0)
-		ft_print_env(env);
-	if (ft_strcmp(tmp, "setenv") == 0)
+	i = 0;
+	word = 1;
+	while (line[i])
 	{
-		ft_add_elem(&top, tmp_2);
+		if (line[i] == ' ' || line[i] == '\t')
+			word++;
+		i++;
 	}
-	if (ft_strcmp(tmp, "exit") == 0)
-	{
-		status = 0;
-		ft_exit(status);
-	}
+	return (word);
 }

@@ -15,12 +15,16 @@
 
 # include "libft.h"
 
+typedef struct		s_lex
+{
+	char			*word;
+	struct s_lex	*next;
+}					t_lex;
 
 typedef struct		s_env
 {
 	char			*name;
 	char			*data;
-	int				*ret;
 	struct s_env	*next;
 }					t_env;
 
@@ -31,17 +35,26 @@ typedef struct		s_glob
 	struct s_glob	*next;
 }					t_glob;
 
+/* parser */
+int					ft_find_command(t_lex *elem);
+void				ft_parser(t_lex **list);
+
 /* lexer */
+t_lex				*ft_new_lex(char *word);
+void				ft_add_lex(t_lex **list, char *word);
 void				ft_lexer(char *line);
 
 /* print */
-void				ft_print_list(t_env *env);
+void				ft_print_env(t_env *env);
 
 /* list */
 t_glob				*ft_singleton(void);
 void				ft_add_elem(t_env **list, char *name);
 t_env				*ft_new_elem(char *elem);
 void				ft_list(t_env **list, t_env *new, t_env *tmp);
+
+/* init */
+char				**init_tab(t_env *list);
 
 /* commandes*/
 void				ft_exit(int status);

@@ -12,21 +12,33 @@
 #include <stdio.h>
 #include "ft_sh1.h"
 
+// void	ft_print_lex(t_lex *lex)
+// {
+// 	t_lex	*tmp;
+
+// 	tmp = lex;
+// 	while (tmp)
+// 	{
+// 		ft_putstr(tmp->word);
+// 		ft_putchar('\n');
+// 		tmp = tmp->next;
+// 	}
+// }
+
 void	ft_lexer(char *line)
 {
+	t_lex	*list;
 	char	**tab;
 	int		i;
 
 	i = 0;
-	tab = (char **)malloc(sizeof(char *) * ft_strlen(line));
-	while (line[i])
+	list = NULL;
+	tab = ft_strsplit(line, ' ');
+	while (tab[i])
 	{
-		while (line[i] != ' ')
-		{
-			tab[1][i] = line[i];
-			i++;
-		}
-		tab[1][i] = '\0';
+		ft_add_lex(&list, tab[i]);
+		i++;
 	}
-	printf("command = %s\n", tab[1]);
+	ft_parser(&list);
+	// ft_print_lex(list);
 }

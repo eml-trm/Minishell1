@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_print_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/09 17:10:34 by etermeau          #+#    #+#             */
-/*   Updated: 2015/03/09 17:10:36 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/13 13:44:07 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/13 13:47:25 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include "ft_sh1.h"
 
-void	ft_print_env(t_env *env)
+#include "libft.h"
+
+void	ft_print_color(char *color, char *str, int fd)
 {
-	t_env	*tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		ft_putstr(tmp->name);
-		ft_putstr(tmp->data);
-		ft_putchar('\n');
-		tmp = tmp->next;
-	}
+	ft_putstr_fd(color, fd);
+	ft_putstr_fd(str, fd);
+	ft_putstr_fd(RESET, fd);
 }

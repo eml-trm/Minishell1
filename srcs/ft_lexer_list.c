@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command.c                                       :+:      :+:    :+:   */
+/*   ft_lexer_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/04 14:42:41 by etermeau          #+#    #+#             */
-/*   Updated: 2015/03/04 14:42:45 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/13 14:22:08 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/13 14:22:10 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include "ft_sh1.h"
 
-void	ft_command(t_env *env, char *line)
+void	ft_add_lex(t_lex **list, char *word)
 {
-	t_env	*top;
-	char	*tmp;
-	char 	*tmp_2;
-	int		status;
+	t_lex	*new;
+	t_lex	*tmp;
 
-	top = env;
-	tmp = ft_strcdup(line, ' ');
-	tmp_2 = ft_strchr(line, ' ');
-	free(line);
-	if (ft_strcmp(tmp, "env") == 0)
-		ft_print_env(env);
-	if (ft_strcmp(tmp, "setenv") == 0)
+	new = ft_new_lex(word);
+	tmp = NULL;
+	if (*list == NULL)
+		*list = new;
+	else
 	{
-		ft_add_elem(&top, tmp_2);
+		tmp = (*list);
+		while (tmp)
+		{
+			if (!(tmp->next))
+				break ;
+			tmp = tmp->next;
+		}
+		tmp->next = new;
 	}
-	if (ft_strcmp(tmp, "exit") == 0)
-	{
-		status = 0;
-		ft_exit(status);
-	}
+}
+
+t_lex	*ft_new_lex(char *word)
+{
+	t_lex	*tmp;
+
+	tmp = (t_lex *)malloc(sizeof(t_lex));
+	tmp->word = word;
+	tmp->next = NULL;
+	return (tmp);
 }

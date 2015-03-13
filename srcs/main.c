@@ -42,12 +42,12 @@ void		ft_sh(char **av, char **envp)
 		ft_add_elem(&tmp, envp[i]);
 		i++;
 	}
+	ft_singleton()->env = tmp;
 	while (42)
 	{
 		ft_print_magenta("# shell #> ");
 		get_next_line(0, &line);
 		ft_lexer(line);
-		// ft_exec_fork(tmp, line);
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/09 12:09:45 by etermeau          #+#    #+#              #
-#    Updated: 2015/01/30 16:37:49 by etermeau         ###   ########.fr        #
+#    Updated: 2015/03/13 14:07:56 by etermeau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRC = ft_atoi.c \
 	  ft_memdel.c \
 	  ft_memmove.c \
 	  ft_memset.c \
+	  ft_print_cyan.c \
+	  ft_print_magenta.c \
 	  ft_putchar.c \
 	  ft_putchar_fd.c \
 	  ft_putendl.c \
@@ -82,8 +84,8 @@ SRC = ft_atoi.c \
 	  ft_lstadd.c \
 	  ft_lstiter.c \
 	  get_next_line.c \
-	  ft_print_cyan.c \
-	  ft_print_magenta.c \
+	  ft_count_word.c \
+	  ft_print_color.c \
 
 O_FILES = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 18:32:54 by etermeau          #+#    #+#             */
-/*   Updated: 2015/01/30 16:38:44 by etermeau         ###   ########.fr       */
+/*   Updated: 2015/03/13 14:09:16 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@
 
 # define BUF_SIZE 42
 # define RED "\033[31m"
-# define BLUE "\033[34m"
+# define BLUE "\033[34"
 # define GREEN "\033[32m"
+# define YELLOW "\033[33m"
 # define MAGENTA "\033[35m"
 # define CYAN "\033[36m"
 # define RESET "\033[0m"
@@ -33,8 +34,10 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-void				ft_print_magenta(char *str);
 void				ft_print_cyan(char *str);
+void				ft_print_magenta(char *str);
+void				ft_print_color(char *color, char *str, int fd);
+int					ft_count_word(char *line);
 char				*ft_strcjoin(char *s1, char *s2, char c);
 int					ft_getnbr(char *str);
 int					get_next_line(int const fd, char **line);

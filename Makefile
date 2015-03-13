@@ -27,6 +27,9 @@ SRC = main.c \
 	  ft_singleton.c \
 	  ft_print.c \
 	  ft_lexer.c \
+	  ft_lexer_list.c \
+	  ft_parser.c \
+	  ft_init_tab.c \
 
 OBJ = $(SRC:.c=.o)
 
