@@ -28,17 +28,17 @@
 void	ft_lexer(char *line)
 {
 	t_lex	*list;
-	char	**tab;
+	char	**arg;
 	int		i;
 
 	i = 0;
 	list = NULL;
-	tab = ft_strsplit(line, ' ');
-	while (tab[i])
+	arg = ft_strsplit(line, ' ');
+	while (arg[i])
 	{
-		ft_add_lex(&list, tab[i]);
+		ft_add_lex(&list, arg[i]);
 		i++;
 	}
-	ft_parser(&list);
+	ft_parser(&list, line);
 	// ft_print_lex(list);
 }

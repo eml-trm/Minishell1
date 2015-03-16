@@ -9,23 +9,12 @@
 /*   Updated: 2015/02/26 21:50:15 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include <stdio.h>
 #include <signal.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h> //open
 #include "ft_sh1.h"
-
-void	ft_exec_fork(t_env *env, char *line)
-{
-	pid_t	pid;
-
-	pid = fork();
-	if (pid == 0)
-		ft_command(env, line);
-	else
-		wait(NULL);
-}
 
 void		ft_sh(char **av, char **envp)
 {

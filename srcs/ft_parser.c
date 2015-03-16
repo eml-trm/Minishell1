@@ -13,6 +13,23 @@
 #include <dirent.h>
 #include "ft_sh1.h"
 
+char		**ft_find_arg(t_lex *list)
+{
+	int i;
+	char	**cmd;
+	t_lex	*tmp;
+/* essai pour arg, voir si opt et si rep. join ts pour tester dans ls*/
+	i = 0;
+	tmp = list;
+	tmp = tmp->next;
+	while (tmp)
+	{
+		cmd[i] = tmp->word;
+		i++;
+		tmp = tmp->next;
+	}
+}
+
 int		ft_find_command(t_lex *lst)
 {
 	DIR				*dir;
@@ -36,16 +53,22 @@ int		ft_find_command(t_lex *lst)
 	return (find);
 }
 
-void	ft_parser(t_lex **list)
+void	ft_parser(t_lex **list, char *line)
 {
 	t_lex	*tmp;
-	char	**tab;
+	char	**env;
+	char	**arg;
 	t_env	*tempo;
 
 	tempo = ft_singleton()->env;
-	tab = init_tab(tempo);
-	printf("TAB\n");
+	env = init_tab(tempo);
 	tmp = *list;
-	// if (ft_find_command(tmp) == 1)
-	// 	execve(ft_strcat("/bin/", tmp->word), &tmp->next->word, tab);
+	if (ft_find_command(tmp) == 1)
+		ft_exec_fork(tmp, env);
+	else
+	{
+		ft_putstr("sh: ");
+		ft_putstr(tmp->word);
+		ft_putendl(": command not found");
+	}
 }

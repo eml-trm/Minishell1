@@ -36,8 +36,9 @@ typedef struct		s_glob
 }					t_glob;
 
 /* parser */
+char				**ft_find_arg(t_lex *list);
 int					ft_find_command(t_lex *elem);
-void				ft_parser(t_lex **list);
+void				ft_parser(t_lex **list, char *line);
 
 /* lexer */
 t_lex				*ft_new_lex(char *word);
@@ -57,7 +58,8 @@ void				ft_list(t_env **list, t_env *new, t_env *tmp);
 char				**init_tab(t_env *list);
 
 /* commandes*/
-void				ft_exit(int status);
-void				ft_command(t_env *env, char * line);
+// void				ft_exit(int status);
+void				ft_exec_fork(t_lex *list, char **tab);
+void				ft_command(t_lex *list, char **tab);
 
 #endif
