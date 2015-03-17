@@ -48,3 +48,15 @@ char	**init_tab(t_env *list)
 	}
 	return (tab);
 }
+
+void	ft_print_tab(char **tab)
+{
+	int 	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		ft_putstr(tab[i]);
+		i++;
+	}
+}

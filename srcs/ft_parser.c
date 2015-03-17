@@ -13,21 +13,41 @@
 #include <dirent.h>
 #include "ft_sh1.h"
 
-char		**ft_find_arg(t_lex *list)
+// char		*ft_recup_path(void)
+// {
+// 	t_env	*env;
+// 	char	*tmp;
+// 	char	*path;
+
+// 	env = ft_singleton()->env;
+// 	while (env)
+// 	{
+// 		if (ft_strcmp(env->name, "PATH") == 0)
+// 			tmp = env->data;
+// 		env = env->next;
+// 	}
+// 	path = ft_strchr(tmp, '/');
+// 	printf("path = %s\n", path);
+// 	return (path);
+// }
+
+void		ft_find_arg(t_lex *list)
 {
-	int i;
+	int		i;
 	char	**cmd;
 	t_lex	*tmp;
-/* essai pour arg, voir si opt et si rep. join ts pour tester dans ls*/
+
 	i = 0;
 	tmp = list;
-	tmp = tmp->next;
+	cmd = (char **)malloc(sizeof(char *) * (ft_count_word(tmp->word) + 1));
 	while (tmp)
 	{
+		cmd[i] = (char *)malloc(sizeof(char) * ft_strlen(tmp->word) + 1);
 		cmd[i] = tmp->word;
 		i++;
 		tmp = tmp->next;
 	}
+	cmd[i] = NULL;
 }
 
 int		ft_find_command(t_lex *lst)
@@ -57,14 +77,15 @@ void	ft_parser(t_lex **list, char *line)
 {
 	t_lex	*tmp;
 	char	**env;
-	char	**arg;
 	t_env	*tempo;
 
 	tempo = ft_singleton()->env;
 	env = init_tab(tempo);
 	tmp = *list;
 	if (ft_find_command(tmp) == 1)
-		ft_exec_fork(tmp, env);
+		ft_exec_fork(tmp, env, line);
+	else if (ft_strcmp(ft_strtrim(line), "exit") == 0)
+		exit(1);
 	else
 	{
 		ft_putstr("sh: ");
