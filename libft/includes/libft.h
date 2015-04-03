@@ -38,7 +38,7 @@ void				ft_print_cyan(char *str);
 void				ft_print_magenta(char *str);
 void				ft_print_color(char *color, char *str, int fd);
 int					ft_count_word(char *line);
-char				*ft_strcjoin(char *s1, char *s2, char c);
+char				*ft_strcjoin(char const *s1, char const *s2, char c);
 int					ft_getnbr(char *str);
 int					get_next_line(int const fd, char **line);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
