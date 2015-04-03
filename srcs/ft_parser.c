@@ -68,14 +68,10 @@ void	ft_parser(t_lex **list, char *line)
 	tempo = ft_singleton()->env;
 	env = init_tab(tempo);
 	tmp = *list;
-	if (ft_find_command(tmp) == 1)
+	if (ft_find_command(tmp, tempo) != 0)
 		ft_exec_fork(tmp, env, line);
 	else if (ft_strcmp(ft_strtrim(line), "exit") == 0)
 		exit(1);
 	else
-	{
-		ft_putstr("sh: ");
-		ft_putstr(tmp->word);
-		ft_putendl(": command not found");
-	}
+		code_erreur(2, tmp->word);
 }

@@ -48,7 +48,7 @@ char				*ft_getenv(char *name);
 /* parser */
 char				*recup_dir(t_lex *lst);
 void				ft_find_arg(t_lex *list);
-int					ft_find_command(t_lex *elem);
+int					ft_find_command(t_lex *elem, t_env *env);
 void				ft_parser(t_lex **list, char *line);
 
 /* lexer */
