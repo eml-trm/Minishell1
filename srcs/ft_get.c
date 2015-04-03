@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command.c                                       :+:      :+:    :+:   */
+/*   ft_get.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,42 +9,41 @@
 /*   Updated: 2015/03/04 14:42:45 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include <dirent.h>
+
+#include <unistd.h> // getcwd
 #include "ft_sh1.h"
 
-int		ft_find_command(t_lex *lst)
+char		*ft_getenv(char *name)
 {
-	DIR				*dir;
-	struct dirent	*ret;
-	int				find;
+	t_env	*temp;
 
-	if (access("/bin", R_OK) != 0)
-		exit(1);
-	if (!(dir = opendir("/bin")))
-		ft_putstr("sh error : can't open dir \n");
-	while ((ret = readdir(dir)))
+	temp = ft_singleton()->env;
+	while (temp)
 	{
-		if (ft_strcmp(lst->word, ret->d_name) == 0)
-		{
-			find = 1;
-			return (find);
-		}
-		else
-			find = 0;
+		if (ft_strcmp(name, temp->name) == 0)
+			return (temp->data);
+		temp = temp->next;
 	}
-	return (find);
+	return (NULL);
 }
 
-void	ft_exec_cmd(t_lex *list, char **env, char *line)
+char		*ft_getcwd(void)
 {
-	t_lex	*tmp;
-	char	**arg;
+	char	*path;
 	int		i;
 
-	i = 0;
-	tmp = list;
-	arg = ft_strsplit(line, ' ');
-
-	execve(ft_strjoin("/bin/", tmp->word), arg, env);
+	i = 1;
+	while (42)
+	{
+		path = NULL;
+		if (!(path = (char *)ft_memalloc(i * sizeof(path))))
+			return (NULL);
+		if (getcwd(path, i))
+			return (path);
+		if (path)
+			free(path);
+		i += 1;
+		if (i > 255)
+			return (NULL);
+	}
 }

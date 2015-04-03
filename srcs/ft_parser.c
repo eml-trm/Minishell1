@@ -13,23 +13,30 @@
 #include <dirent.h>
 #include "ft_sh1.h"
 
-// char		*ft_recup_path(void)
-// {
-// 	t_env	*env;
-// 	char	*tmp;
-// 	char	*path;
+int		verif_path(t_lex *lst, t_env *env)
+{
+	char	**tmp;
+	char	**tab;
+	int		find;
+	int		a;
 
-// 	env = ft_singleton()->env;
-// 	while (env)
-// 	{
-// 		if (ft_strcmp(env->name, "PATH") == 0)
-// 			tmp = env->data;
-// 		env = env->next;
-// 	}
-// 	path = ft_strchr(tmp, '/');
-// 	printf("path = %s\n", path);
-// 	return (path);
-// }
+	a = 0;
+	find = 0;
+	tmp = ft_strsplit(env->data, '=');
+	tab = ft_strsplit(tmp[0], ':');
+	while (tab[a])
+	{
+		if (access(ft_strcjoin(tab[a], lst->word, '/'), X_OK) == 0)
+		{
+			find = 1;
+			a++;
+		}
+		else
+			a++;
+	}
+	return (find);
+}
+
 
 void		ft_find_arg(t_lex *list)
 {
@@ -50,28 +57,7 @@ void		ft_find_arg(t_lex *list)
 	cmd[i] = NULL;
 }
 
-int		ft_find_command(t_lex *lst)
-{
-	DIR				*dir;
-	struct dirent	*ret;
-	int				find;
 
-	if (access("/bin", R_OK) != 0)
-		exit(1);
-	if (!(dir = opendir("/bin")))
-		ft_putstr("sh error : can't open dir \n");
-	while ((ret = readdir(dir)))
-	{
-		if (ft_strcmp(lst->word, ret->d_name) == 0)
-		{
-			find = 1;
-			return (find);
-		}
-		else
-			find = 0;
-	}
-	return (find);
-}
 
 void	ft_parser(t_lex **list, char *line)
 {

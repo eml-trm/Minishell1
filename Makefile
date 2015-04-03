@@ -23,13 +23,17 @@ FLAGS = -Wall -Wextra -Werror
 SRC = main.c \
 	  ft_command.c \
 	  ft_list.c \
-	  ft_builtin.c \
 	  ft_singleton.c \
 	  ft_print.c \
 	  ft_lexer.c \
 	  ft_lexer_list.c \
 	  ft_parser.c \
 	  ft_init_tab.c \
+	  ft_erreur.c \
+	  ft_fork.c \
+	  ft_get.c \
+	  ft_builtin_cd.c \
+	  ft_access_cd.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -39,7 +43,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -s -C $(LIB)
-	@gcc $(FLAGS) -o $(NAME) $^ -L$(LIB) -lft
+	@gcc $(FLAGS) -o $(NAME) $^ -L$(LIB) -lft -g
+	@echo "\033[3;32m$(NAME) Successfully $(STATE)\033[0m"
 
 %.o: $(DIRSRC)%.c
 	@gcc $(FLAGS) -o $@ -c $< -I$(LIB)$(HEADER) -I$(HEADER)
@@ -53,3 +58,4 @@ fclean: clean
 	@make fclean -s -C $(LIB)
 
 re: fclean all
+

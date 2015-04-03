@@ -31,11 +31,22 @@ typedef struct		s_env
 typedef struct		s_glob
 {
 	t_env			*env;
+	t_lex			*lst;
 	int				ret;
+	char			*pwd;
 	struct s_glob	*next;
 }					t_glob;
 
+/* erreur */
+int					ft_access(char *path);
+void				code_erreur(int code, char *str);
+
+/* recup infos */
+char				*ft_getcwd(void);
+char				*ft_getenv(char *name);
+
 /* parser */
+char				*recup_dir(t_lex *lst);
 void				ft_find_arg(t_lex *list);
 int					ft_find_command(t_lex *elem);
 void				ft_parser(t_lex **list, char *line);
@@ -56,11 +67,12 @@ t_env				*ft_new_elem(char *elem);
 void				ft_list(t_env **list, t_env *new, t_env *tmp);
 
 /* init */
+int					verif_path(t_lex *lst, t_env *env);
 char				**init_tab(t_env *list);
 
 /* commandes*/
-// void				ft_exit(int status);
+void				ft_cd(char **cmd);
 void				ft_exec_fork(t_lex *list, char **tab, char *line);
-void				ft_command(t_lex *list, char **tab, char *line);
+void				ft_exec_cmd(t_lex *list, char **env, char *line);
 
 #endif

@@ -10,23 +10,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ft_sh1.h"
 
-void	ft_exit(int status)
+static char	*istild(char **str)
 {
-	t_glob	*glob;
-	t_env	*tmp;
+	char	*temp;
+	char	*tmp;
+	char	*path;
 
-	(void)status;
-	glob = ft_singleton();
-	tmp = glob->env;
-	while (tmp)
+	temp = *str;
+	if (!ft_strncmp(temp, "~/", 2))
 	{
-		free(tmp->name);
-		free(tmp->data);
-		tmp = tmp->next;
+		tmp = NULL;
+		tmp = ft_strdup(ft_getenv("HOME"));
+		if (!tmp)
+			return (*str);
+		path = ft_strjoin(tmp, *(str) + 1);
+		if (tmp)
+			free(tmp);
+		tmp = NULL;
+		if (str)
+			free(*str);
+		*str = path;
 	}
-	glob->ret = status;
-	free(glob);
-	while (1);
+	return (*str);
+}
+
+void	ft_cd(char **cmd)
+{
+	char *path;
+
+	path = NULL;
+	if (!cmd[1] || (!ft_strncmp(cmd[1], "~", 2) && !cmd[2]))
+		path = ft_strdup(ft_getenv("HOME"));
+	else if (!ft_strcmp(cmd[1], "-") && !cmd[2])
+		path = ft_strdup(ft_getenv("OLDPWD"));
+	else if (!cmd[2])
+		path = ft_strdup(istild(&cmd[1]));
+	else
+		ft_putendl_fd("cd: Too many arguments", 2);
+	if (path)
+	{
+		if (ft_singleton()->pwd)
+			free(ft_singleton()->pwd);
+		ft_singleton()->pwd = ft_getcwd();
+		ft_access(path);
+	}
+	if (path)
+		free(path);
 }
