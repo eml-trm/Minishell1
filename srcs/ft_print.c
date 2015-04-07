@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 18:32:23 by etermeau          #+#    #+#             */
-/*   Updated: 2015/01/08 18:00:35 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/09 17:10:34 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/09 17:10:36 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stdio.h>
+#include "ft_sh1.h"
 
-int		ft_strcmp(const char *s1, const char *s2)
+void	ft_print_env(t_env *env)
 {
-	char	*str1;
-	char	*str2;
+	t_env	*tmp;
 
-	str1 = (char *)s1;
-	str2 = (char *)s2;
-	while (*str1 != '\0')
+	tmp = env;
+	while (tmp)
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		str1++;
-		str2++;
+		ft_putstr(tmp->name);
+		ft_putstr(tmp->data);
+		ft_putchar('\n');
+		tmp = tmp->next;
 	}
-	return (*str1 - *str2);
 }

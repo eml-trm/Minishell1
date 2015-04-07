@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_singleton.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 18:32:23 by etermeau          #+#    #+#             */
-/*   Updated: 2015/01/08 18:00:35 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/09 14:30:55 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/09 14:30:57 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strcmp(const char *s1, const char *s2)
-{
-	char	*str1;
-	char	*str2;
+#include "ft_sh1.h"
 
-	str1 = (char *)s1;
-	str2 = (char *)s2;
-	while (*str1 != '\0')
+t_glob	*ft_singleton(void)
+{
+	static t_glob	*glob = NULL;
+
+	if (!glob)
 	{
-		if (*str1 != *str2)
-			return (*str1 - *str2);
-		str1++;
-		str2++;
+		if (!(glob = (t_glob *)malloc(sizeof(t_glob))))
+			ft_putstr("Malloc error\n");
+		glob->env = NULL;
+		glob->pwd = ft_getcwd();
+		glob->ret = -1;
+		glob->next = NULL;
 	}
-	return (*str1 - *str2);
+	return (glob);
 }

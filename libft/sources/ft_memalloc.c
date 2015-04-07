@@ -11,17 +11,15 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
 void	*ft_memalloc(size_t size)
 {
-	char	*new;
-	char	*tmp;
+	void	*str;
 
-	new = malloc(sizeof(size));
-	tmp = new;
-	if (!new || (int)size <= 0)
+	if ((str = (void *)malloc(size * sizeof(str))))
+		ft_bzero(str, size);
+	else
 		return (NULL);
-	while ((tmp - new) < (int)size)
-		*(tmp++) = 0;
-	return (new);
+	return (str);
 }

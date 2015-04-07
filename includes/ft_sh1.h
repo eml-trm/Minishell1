@@ -42,6 +42,9 @@ int					ft_access(char *path);
 void				code_erreur(int code, char *str);
 
 /* recup infos */
+int					ft_strplen(char **str);
+void				ft_print_tab(char **tab);
+void				ft_new_env(char *name, char *info, int i);
 char				*ft_getcwd(void);
 char				*ft_getenv(char *name);
 
@@ -58,6 +61,7 @@ void				ft_lexer(char *line);
 
 /* print */
 void				ft_print_tab(char **tab);
+void				ft_print_lex(t_lex *lex);
 void				ft_print_env(t_env *env);
 
 /* list */
@@ -71,8 +75,18 @@ int					verif_path(t_lex *lst, t_env *env);
 char				**init_tab(t_env *list);
 
 /* commandes*/
+int					ft_exit(char **str);
+void				ft_unsetenv(char **str);
+void				add_env(t_env **temp, char *name, char *data);
+void				ft_setenv(char **str);
+void				exec_env(char **str, int *i, int isnew_env, char **env);
+char				**build_env(t_env *env);
+char				**new_env(char **str);
+int					is_exec(char **newenv, char *str);
+int					search_cmd(char **str);
+void				ft_env(char **str);
 void				ft_cd(char **cmd);
-void				ft_exec_fork(t_lex *list, char **tab, char *line);
-void				ft_exec_cmd(t_lex *list, char **env, char *line);
+void				ft_exec_fork(t_lex *list, char **tab, char *line, int cmd);
+void				ft_exec_cmd(t_lex *list, char **tab, char *line, int cmd);
 
 #endif
