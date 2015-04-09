@@ -14,15 +14,13 @@
 
 char	*recup_dir(t_lex *lst)
 {
-	t_env	*tmp;
-	char	**hlp;
+	char	*tmp;
 	char	**tab;
 	int		a;
 
 	a = 0;
-	tmp = ft_singleton()->env;
-	hlp = ft_strsplit(tmp->data, '=');
-	tab = ft_strsplit(hlp[0], ':');
+	tmp = ft_getenv("PATH");
+	tab = ft_strsplit(tmp, ':');
 	while (tab[a])
 	{
 		tab[a] = ft_strcjoin(tab[a], lst->word, '/');
@@ -34,15 +32,20 @@ char	*recup_dir(t_lex *lst)
 	return (NULL);
 }
 
-void	ft_exec_fork(t_lex *list, char **env, char *line, int cmd)
+void	ft_exec_fork(t_lex *list, char **env, char **arg)
 {
 	pid_t	pid;
+	t_lex	*tmp;
+	char	*dir;
 
+	tmp = list;
+	dir = recup_dir(tmp);
 	pid = fork();
 	if (pid == 0)
-	{
-		ft_exec_cmd(list, env, line, cmd);
-	}
+		execve(dir, arg, env);
 	else
 		wait(NULL);
 }
+
+
+// -wait recupere la valeur de retour de execve -> a mettre dans une focntin pour valeur de singleton->ret

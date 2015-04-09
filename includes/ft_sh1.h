@@ -15,6 +15,17 @@
 
 # include "libft.h"
 
+enum  e_cmd_type
+{
+	_ERR = 0,
+	_EXEC,
+	_CD,
+	_ENV,
+	_SETENV,
+	_UNSETENV,
+	_EXIT
+};
+
 typedef struct		s_lex
 {
 	char			*word;
@@ -51,8 +62,8 @@ char				*ft_getenv(char *name);
 /* parser */
 char				*recup_dir(t_lex *lst);
 void				ft_find_arg(t_lex *list);
-int					ft_find_command(t_lex *elem, t_env *env);
-void				ft_parser(t_lex **list, char *line);
+int					ft_find_command(t_lex *elem);
+void				ft_parser(t_lex **list, char **arg);
 
 /* lexer */
 t_lex				*ft_new_lex(char *word);
@@ -71,7 +82,7 @@ t_env				*ft_new_elem(char *elem);
 void				ft_list(t_env **list, t_env *new, t_env *tmp);
 
 /* init */
-int					verif_path(t_lex *lst, t_env *env);
+int					verif_path(t_lex *lst);
 char				**init_tab(t_env *list);
 
 /* commandes*/
@@ -86,7 +97,7 @@ int					is_exec(char **newenv, char *str);
 int					search_cmd(char **str);
 void				ft_env(char **str);
 void				ft_cd(char **cmd);
-void				ft_exec_fork(t_lex *list, char **tab, char *line, int cmd);
-void				ft_exec_cmd(t_lex *list, char **tab, char *line, int cmd);
+void				ft_exec_fork(t_lex *list, char **tab, char ** arg);
+void				ft_exec_cmd(char ** arg, int cmd);
 
 #endif

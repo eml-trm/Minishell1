@@ -14,32 +14,6 @@
 #include <signal.h>
 #include "ft_sh1.h"
 
-int		verif_path(t_lex *lst, t_env *env)
-{
-	char	**tmp;
-	char	**tab;
-	int		find;
-	int		a;
-
-	a = 0;
-	find = 0;
-	tmp = ft_strsplit(env->data, '=');
-	tab = ft_strsplit(tmp[0], ':');
-	while (tab[a])
-	{
-		tab[a] = ft_strcjoin(tab[a], lst->word, '/');
-		if (access(tab[a], X_OK) == 0)
-		{
-			find = 1;
-			a++;
-		}
-		else
-			a++;
-	}
-	return (find);
-}
-
-
 void		ft_find_arg(t_lex *list)
 {
 	int		i;
@@ -56,28 +30,27 @@ void		ft_find_arg(t_lex *list)
 		i++;
 		tmp = tmp->next;
 	}
-	cmd[i] = NULL;
+	cmd[(ft_count_word(tmp->word) + 1)] = NULL;
 }
 
-
-
-void	ft_parser(t_lex **list, char *line)
+void	ft_parser(t_lex **list, char **arg)
 {
 	t_lex	*tmp;
 	char	**env;
 	t_env	*tempo;
 	int		num_cmd;
 
-	ft_print_color(YELLOW, "parser\n", 1);
 	tempo = ft_singleton()->env;
 	env = init_tab(tempo);
 	tmp = *list;
 	if (tmp)
 	{
-		num_cmd = ft_find_command(tmp, tempo);
-		if (num_cmd > 0)
-			ft_exec_fork(tmp, env, line, num_cmd);
-		// if (ft_strcmp(ft_strtrim(line), "exit") == 0)
-		// 	exit(1);
+		num_cmd = ft_find_command(tmp);
+		if (num_cmd == 1)
+			ft_exec_fork(tmp, env, arg);
+		else if (num_cmd > 1)
+			ft_exec_cmd(arg, num_cmd);
+		else if (num_cmd == 0)
+			code_erreur(2, tmp->word);
 	}
 }

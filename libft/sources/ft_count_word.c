@@ -12,8 +12,8 @@
 
 int		ft_count_word(char *line)
 {
-	int	i;
-	int	word;
+	int		i;
+	int		word;
 
 	i = 0;
 	word = 1;

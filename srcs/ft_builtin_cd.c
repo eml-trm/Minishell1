@@ -34,12 +34,13 @@ static char	*istild(char **str)
 			free(*str);
 		*str = path;
 	}
+
 	return (*str);
 }
 
 void	ft_cd(char **cmd)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	if (!cmd[1] || (!ft_strncmp(cmd[1], "~", 2) && !cmd[2]))

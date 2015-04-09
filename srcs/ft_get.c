@@ -53,16 +53,3 @@ char		*ft_getcwd(void)
 			return (NULL);
 	}
 }
-
-int		ft_strplen(char **str)
-{
-	int		i;
-
-	i = 0;
-	if (str)
-	{
-		while (*(str++))
-			i++;
-	}
-	return (i);
-}

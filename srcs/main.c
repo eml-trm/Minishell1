@@ -43,6 +43,11 @@ void		ft_sh(char **av, char **envp)
 
 int			main(int ac, char **av, char **envp)
 {
+	// ft_prisnt_tab(envp);
+	// (void)ac;
+	// (void)av;
+	// if (!envp)
+	// 	printf("TRUC\n");
 	if (ac == 1)
 		ft_sh(av, envp);
 	return (ft_singleton()->ret);

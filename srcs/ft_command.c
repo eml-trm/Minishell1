@@ -14,22 +14,28 @@
 #include <signal.h>
 #include "ft_sh1.h"
 
-// int		ft_find_command(t_lex *lst, t_env *env)
-// {
-// 	int				find;
+int		verif_path(t_lex *lst)
+{
+	char	*tmp;
+	char	**tab;
+	int		find;
+	int		a;
 
-// 	find = verif_path(lst, env);
-// 	if (find == 0)
-// 	{
-// 		printf("Passage\n");
-// 		if (ft_strcmp(lst->word, "cd") == 0)
-// 			find = 2;
-// 	}
-// 	printf("find_after = %d\n", find);
-// 	return (find);
-// }
+	a = 0;
+	find = 0;
+	tmp = ft_getenv("PATH");
+	tab = ft_strsplit(tmp, ':');
+	while (tab[a])
+	{
+		tab[a] = ft_strcjoin(tab[a], lst->word, '/');
+		if (access(tab[a], X_OK) == 0)
+			find = 1;
+		a++;
+	}
+	return (find);
+}
 
-int		ft_find_command(t_lex *lst, t_env *env)
+int		ft_find_command(t_lex *lst)
 {
 	int		find;
 	char	*cmd;
@@ -48,25 +54,14 @@ int		ft_find_command(t_lex *lst, t_env *env)
 	else if (ft_strcmp(cmd, "exit") == 0)
 		find = 6;
 	else
-		find = verif_path(lst, env);
+		find = verif_path(lst);
 	printf("find = %d\n", find);
 	return (find);
 }
 
-void	ft_exec_cmd(t_lex *list, char **env, char *line, int cmd)
+void	ft_exec_cmd(char **arg, int cmd)
 {
-	t_lex	*tmp;
-	char	**arg;
-	char	*dir;
-	int		i;
-
-	i = 0;
-	tmp = list;
-	dir = recup_dir(tmp);
-	arg = ft_strsplit(line, ' ');
-	if (dir != NULL && cmd == 1)
-		execve(dir, arg, env);
-	else if (cmd == 2)
+	if (cmd == 2)
 		ft_cd(arg);
 	else if (cmd == 3)
 		ft_env(arg);
@@ -76,6 +71,4 @@ void	ft_exec_cmd(t_lex *list, char **env, char *line, int cmd)
 		ft_unsetenv(arg);
 	else if (cmd == 6)
 		ft_exit(arg);
-	else if (cmd == 0)
-		code_erreur(2, tmp->word);
 }

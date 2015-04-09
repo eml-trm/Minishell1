@@ -51,7 +51,7 @@ char		**build_env(t_env *env)
 	char	**new_env;
 
 	i = count_env(env);
-	if (!(new_env = ft_memalloc(sizeof(char **) * (i + 1))))
+	if (!(new_env = malloc(sizeof(char **) * (i + 1))))
 		return (NULL);
 	copy_env(&new_env, env);
 	return (new_env);
