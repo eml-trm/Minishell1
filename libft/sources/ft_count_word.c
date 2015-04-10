@@ -10,18 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
+
 int		ft_count_word(char *line)
 {
 	int		i;
 	int		word;
 
 	i = 0;
-	word = 1;
+	word = 0;
 	while (line[i])
 	{
-		if (line[i] == ' ' || line[i] == '\t')
-			word++;
+		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+			i++;
 		i++;
+		if (line[i])
+			word++;
+		while (line[i] && (line[i] != ' ' && line[i] != '\t'))
+			i++;
 	}
 	return (word);
 }

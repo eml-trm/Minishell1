@@ -25,6 +25,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 			return (NULL);
 		tmp = ft_strcpy(tmp, s1);
 		tmp = ft_strcat(tmp, s2);
+		tmp[ft_strlen(s1) + ft_strlen(s2) + 1] = '\0';
 	}
 	return (tmp);
 }

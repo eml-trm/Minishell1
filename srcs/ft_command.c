@@ -24,12 +24,20 @@ int		verif_path(t_lex *lst)
 	a = 0;
 	find = 0;
 	tmp = ft_getenv("PATH");
+	if (tmp == NULL)
+	{
+		code_erreur(2, lst->word);
+		return (-1);
+	}
 	tab = ft_strsplit(tmp, ':');
 	while (tab[a])
 	{
 		tab[a] = ft_strcjoin(tab[a], lst->word, '/');
 		if (access(tab[a], X_OK) == 0)
+		{
 			find = 1;
+			break;
+		}
 		a++;
 	}
 	return (find);
@@ -43,7 +51,9 @@ int		ft_find_command(t_lex *lst)
 	ft_print_color(BLUE, "CHECK_CMD\n", 1);
 	cmd = lst->word;
 	find = 0;
-	if (ft_strcmp(cmd, "cd") == 0)
+	if (ft_strchr(cmd, '/'))
+		find = 1;
+	else if (ft_strcmp(cmd, "cd") == 0)
 		find = 2;
 	else if (ft_strcmp(cmd, "env") == 0)
 		find = 3;

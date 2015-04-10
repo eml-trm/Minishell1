@@ -73,6 +73,8 @@ void	code_erreur(int code, char *str)
 		ft_print_color(RED, "exit: ", 2);
 		ft_print_color(RED, " Too many arguments\n", 2);
 	}
+	if (code == 10)
+		ft_print_color(RED, "Error: execve\n", 2);
 	if (code >= 3 || code <= 6)
 		erreur_cd(code, str);
 	if (code >= 7)

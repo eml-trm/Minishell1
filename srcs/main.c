@@ -33,7 +33,7 @@ void		ft_sh(char **av, char **envp)
 	}
 	ft_singleton()->env = tmp;
 	while (ft_singleton()->ret == -1)
-	{	
+	{
 		ft_print_magenta("# shell #> ");
 		get_next_line(0, &line);
 		if (line)
@@ -43,11 +43,6 @@ void		ft_sh(char **av, char **envp)
 
 int			main(int ac, char **av, char **envp)
 {
-	// ft_prisnt_tab(envp);
-	// (void)ac;
-	// (void)av;
-	// if (!envp)
-	// 	printf("TRUC\n");
 	if (ac == 1)
 		ft_sh(av, envp);
 	return (ft_singleton()->ret);

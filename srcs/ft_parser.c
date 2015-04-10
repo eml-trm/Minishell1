@@ -33,24 +33,22 @@ void		ft_find_arg(t_lex *list)
 	cmd[(ft_count_word(tmp->word) + 1)] = NULL;
 }
 
-void	ft_parser(t_lex **list, char **arg)
+void	ft_parser(t_lex *list, char **arg)
 {
-	t_lex	*tmp;
 	char	**env;
 	t_env	*tempo;
 	int		num_cmd;
 
 	tempo = ft_singleton()->env;
 	env = init_tab(tempo);
-	tmp = *list;
-	if (tmp)
+	if (list)
 	{
-		num_cmd = ft_find_command(tmp);
+		num_cmd = ft_find_command(list);
 		if (num_cmd == 1)
-			ft_exec_fork(tmp, env, arg);
+			ft_exec_fork(list, env, arg);
 		else if (num_cmd > 1)
 			ft_exec_cmd(arg, num_cmd);
 		else if (num_cmd == 0)
-			code_erreur(2, tmp->word);
+			code_erreur(2, list->word);
 	}
 }

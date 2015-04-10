@@ -63,7 +63,7 @@ char				*ft_getenv(char *name);
 char				*recup_dir(t_lex *lst);
 void				ft_find_arg(t_lex *list);
 int					ft_find_command(t_lex *elem);
-void				ft_parser(t_lex **list, char **arg);
+void				ft_parser(t_lex *list, char **arg);
 
 /* lexer */
 t_lex				*ft_new_lex(char *word);
@@ -82,6 +82,7 @@ t_env				*ft_new_elem(char *elem);
 void				ft_list(t_env **list, t_env *new, t_env *tmp);
 
 /* init */
+void				ft_free_tab(char **tab);
 int					verif_path(t_lex *lst);
 char				**init_tab(t_env *list);
 

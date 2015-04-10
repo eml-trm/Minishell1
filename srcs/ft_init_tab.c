@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
+#include <stdlib.h>
 #include "ft_sh1.h"
 
 int		count_chain(t_env *list)
@@ -30,7 +31,6 @@ int		count_chain(t_env *list)
 char	**init_tab(t_env *list)
 {
 	int		a;
-	char	*word;
 	char	**tab;
 	t_env	*tmp;
 
@@ -40,13 +40,24 @@ char	**init_tab(t_env *list)
 	tmp = list;
 	while (tmp)
 	{
-		word = ft_strjoin(tmp->name, tmp->data);
-		tab[a] = (char *)malloc(sizeof(char) * (ft_strlen(word) + 1));
-		tab[a] = word;
+		tab[a] = ft_strjoin(tmp->name, tmp->data);
 		a++;
 		tmp = tmp->next;
 	}
 	return (tab);
+}
+
+void	ft_free_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	tab[i] = NULL;
 }
 
 void	ft_print_tab(char **tab)
