@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_binaries.c                                      :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/03 18:26:41 by etermeau          #+#    #+#             */
-/*   Updated: 2015/04/03 18:26:42 by etermeau         ###   ########.fr       */
+/*   Created: 2014/11/05 16:55:36 by etermeau          #+#    #+#             */
+/*   Updated: 2014/11/28 15:46:31 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "ft_sh1.h"
+#include <string.h>
+#include "libft.h"
 
-char		**bin(char *cmd, char *path_env)
+char	*ft_strdup(char const *s1)
 {
-	char	**path;
-	char	**temp;
+	char	*d;
+	int		i;
 
-	if (!path_env)
-		return (ft_strsplit(cmd, ' '));
-	path = ft_strsplit(path_env, ':');
-	temp = path;
-	path_env = NULL;
-	while (*temp)
+	i = 0;
+	if (s1)
 	{
-		path_env = ft_strjoin(*temp, "/");
-		free(*temp);
-		*temp = ft_strjoin(path_env, cmd);
-		free(path_env);
-		path_env = NULL;
-		temp++;
+		if ((d = (char *)malloc(sizeof(*d) * (ft_strlen(s1) + 1))) == NULL)
+			return (NULL);
+		while (s1[i])
+		{
+			d[i] = s1[i];
+			i++;
+		}
+		d[i] = '\0';
+		return (d);
 	}
-	return (path);
+	else
+		return (NULL);
 }

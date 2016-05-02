@@ -9,7 +9,7 @@
 /*   Updated: 2015/03/09 12:03:55 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
 #include "ft_sh1.h"
 
@@ -34,11 +34,10 @@ static char	*istild(char **str)
 			free(*str);
 		*str = path;
 	}
-
 	return (*str);
 }
 
-void	ft_cd(char **cmd)
+void		ft_cd(char **cmd)
 {
 	char	*path;
 

@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_builtin_exit.c                                  :+:      :+:    :+:   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/07 13:28:03 by etermeau          #+#    #+#             */
-/*   Updated: 2015/04/07 13:28:04 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/09 17:10:34 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/09 17:10:36 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "ft_sh1.h"
 
-int		ft_exit(char **str)
+void	ft_print_env(t_env *env)
 {
-	exit(0);
-	(void)str;
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		ft_putstr(tmp->name);
+		ft_putstr(tmp->data);
+		ft_putchar('\n');
+		tmp = tmp->next;
+	}
 }

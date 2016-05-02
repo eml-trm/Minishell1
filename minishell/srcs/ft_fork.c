@@ -9,7 +9,7 @@
 /*   Updated: 2015/03/31 14:58:09 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
 #include "ft_sh1.h"
 
@@ -48,7 +48,7 @@ void	ft_exec_bin(char **arg, char **env)
 		code_erreur(1, NULL);
 	}
 	else
-		code_erreur(2, *arg);
+		code_erreur(2, arg[1]);
 }
 
 void	ft_exec_fork(t_lex *list, char **env, char **arg)
@@ -58,7 +58,6 @@ void	ft_exec_fork(t_lex *list, char **env, char **arg)
 	char	*dir;
 
 	tmp = list;
-	dir = recup_dir(tmp);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -66,6 +65,7 @@ void	ft_exec_fork(t_lex *list, char **env, char **arg)
 			ft_exec_bin(arg, env);
 		else
 		{
+			dir = recup_dir(tmp);
 			execve(dir, arg, env);
 			code_erreur(10, NULL);
 			exit(0);

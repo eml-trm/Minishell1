@@ -9,7 +9,7 @@
 /*   Updated: 2015/03/04 14:42:45 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <dirent.h>
 #include <signal.h>
 #include "ft_sh1.h"
@@ -36,7 +36,7 @@ int		verif_path(t_lex *lst)
 		if (access(tab[a], X_OK) == 0)
 		{
 			find = 1;
-			break;
+			break ;
 		}
 		a++;
 	}
@@ -48,7 +48,6 @@ int		ft_find_command(t_lex *lst)
 	int		find;
 	char	*cmd;
 
-	ft_print_color(BLUE, "CHECK_CMD\n", 1);
 	cmd = lst->word;
 	find = 0;
 	if (ft_strchr(cmd, '/'))
@@ -65,7 +64,6 @@ int		ft_find_command(t_lex *lst)
 		find = 6;
 	else
 		find = verif_path(lst);
-	printf("find = %d\n", find);
 	return (find);
 }
 

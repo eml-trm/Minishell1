@@ -37,7 +37,7 @@ SRC = main.c \
 	  ft_new_env.c \
 	  ft_builtin_env.c \
 	  ft_setenv.c \
-	  ft_builtin_exit.c
+	  ft_builtin_exit.c \
 
 OBJ = $(SRC:.c=.o)
 

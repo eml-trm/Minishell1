@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/09 17:10:34 by etermeau          #+#    #+#             */
-/*   Updated: 2015/03/09 17:10:36 by etermeau         ###   ########.fr       */
+/*   Created: 2015/03/13 13:36:36 by etermeau          #+#    #+#             */
+/*   Updated: 2015/03/13 13:42:11 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
-#include "ft_sh1.h"
 
-void	ft_print_env(t_env *env)
+#include <libft.h>
+
+int		ft_count_word(char *line)
 {
-	t_env	*tmp;
+	int		i;
+	int		word;
 
-	tmp = env;
-	while (tmp)
+	i = 0;
+	word = 0;
+	while (line[i])
 	{
-		ft_putstr(tmp->name);
-		ft_putstr(tmp->data);
-		ft_putchar('\n');
-		tmp = tmp->next;
+		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+			i++;
+		if (line[i])
+			word++;
+		while (line[i] && (line[i] != ' ' && line[i] != '\t'))
+			i++;
 	}
+	return (word);
 }

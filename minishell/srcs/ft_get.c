@@ -9,9 +9,9 @@
 /*   Updated: 2015/03/04 14:42:45 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
-#include <unistd.h> // getcwd
+#include <unistd.h>
 #include "ft_sh1.h"
 
 char		*ft_getenv(char *name)

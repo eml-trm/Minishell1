@@ -9,7 +9,7 @@
 /*   Updated: 2015/03/13 14:22:10 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "ft_sh1.h"
 
 void	ft_add_lex(t_lex **list, char *word)

@@ -1,47 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_builtin_env.c                                   :+:      :+:    :+:   */
+/*   ft_setenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/04/05 18:00:24 by etermeau          #+#    #+#             */
-/*   Updated: 2015/04/05 18:00:25 by etermeau         ###   ########.fr       */
+/*   Created: 2015/04/03 19:19:17 by etermeau          #+#    #+#             */
+/*   Updated: 2015/04/03 19:19:18 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "ft_sh1.h"
 
-static void	ft_del_elem(t_env *elem, t_env *start, int i)
+static int	check_name(char *str)
 {
-	t_env	*av1;
-	t_env	*av2;
+	t_env	*env;
+	int		find;
 
-	if (i < 1)
+	find = 0;
+	env = ft_singleton()->env;
+	while (env)
 	{
-		av1 = elem;
-		av2 = elem->next;
-		free(&av1->name);
-		av1->name = NULL;
-		av1->data = NULL;
-		av2 = start->next;
-		ft_singleton()->env = av2;
+		if (ft_strcmp(env->name, str) == 0)
+			find = 1;
+		env = env->next;
 	}
-	else
-	{
-		av1 = elem;
-		av2 = elem->next;
-		free(&av2->name);
-		av2->name = NULL;
-		av2->data = NULL;
-		if (av2->next == NULL)
-			av1->next = NULL;
-		else
-			av1->next = av2->next;
-	}
+	if (find == 0)
+		return (1);
+	return (0);
 }
 
-void	ft_unsetenv(char **str)
+int			ft_unsetenv(char **str)
 {
 	t_env	*tmp;
 	int		i;
@@ -50,10 +39,12 @@ void	ft_unsetenv(char **str)
 	if (str[2])
 		code_erreur(8, "unsetenv");
 	tmp = ft_singleton()->env;
+	if (check_name(str[1]) == 1)
+		return (1);
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->name, str[1]) == 0)
-			break;
+			break ;
 		tmp = tmp->next;
 		i++;
 	}
@@ -64,11 +55,12 @@ void	ft_unsetenv(char **str)
 		i--;
 	}
 	ft_del_elem(tmp, ft_singleton()->env, i);
+	return (0);
 }
 
-void	ft_setenv(char **str)
+void		ft_setenv(char **str)
 {
-	t_env *tmp;
+	t_env	*tmp;
 	char	*arg;
 
 	tmp = ft_singleton()->env;
@@ -76,14 +68,19 @@ void	ft_setenv(char **str)
 	{
 		tmp = tmp->next;
 	}
-	if (str[2] == NULL)
+	if (str[3] || str[1] == NULL)
 		code_erreur(7, "setenv");
-	arg = ft_strjoin("=", str[2]);
-	ft_new_env(str[1], arg, ft_strlen(str[1]));
-}
-
-void	ft_env(char **str)
-{
-	(void)str;
-	ft_print_env(ft_singleton()->env);
+	else
+	{
+		if (ft_strchr(str[1], '='))
+			code_erreur(12, NULL);
+		else
+		{
+			if (!str[2])
+				arg = "=";
+			else
+				arg = ft_strjoin("=", str[2]);
+			ft_new_env(str[1], arg, ft_strlen(str[1]));
+		}
+	}
 }

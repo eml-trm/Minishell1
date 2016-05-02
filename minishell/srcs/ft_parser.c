@@ -9,12 +9,11 @@
 /*   Updated: 2015/03/13 15:07:18 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <dirent.h>
-#include <signal.h>
 #include "ft_sh1.h"
 
-void		ft_find_arg(t_lex *list)
+void	ft_find_arg(t_lex *list)
 {
 	int		i;
 	char	**cmd;

@@ -56,7 +56,7 @@ static void	erreur_cd(int code, char *str)
 	}
 }
 
-void	code_erreur(int code, char *str)
+void		code_erreur(int code, char *str)
 {
 	if (code == 0)
 		ft_print_color(RED, "Malloc error\n", 2);
@@ -64,9 +64,9 @@ void	code_erreur(int code, char *str)
 		ft_print_color(RED, "Permission denied\n", 2);
 	if (code == 2)
 	{
-		ft_print_color(RED, "sh: ", 2);
+		ft_print_color(RED, "sh: [", 2);
 		ft_print_color(RED, str, 2);
-		ft_print_color(RED, ": command not found\n", 2);
+		ft_print_color(RED, "]: command not found\n", 2);
 	}
 	if (code == 9)
 	{
@@ -75,6 +75,10 @@ void	code_erreur(int code, char *str)
 	}
 	if (code == 10)
 		ft_print_color(RED, "Error: execve\n", 2);
+	if (code == 11)
+		ft_print_color(RED, "env : Too many arguments\n", 2);
+	if (code == 12)
+		ft_print_color(RED, "Syntax error\n", 2);
 	if (code >= 3 || code <= 6)
 		erreur_cd(code, str);
 	if (code >= 7)

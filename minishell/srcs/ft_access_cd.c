@@ -9,9 +9,9 @@
 /*   Updated: 2015/03/31 17:48:04 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <sys/stat.h>
-#include <unistd.h> // chdir
+#include <unistd.h>
 #include "ft_sh1.h"
 
 static void	ft_set_pwd(void)
@@ -50,4 +50,3 @@ int			ft_access(char *path)
 		code_erreur(5, path);
 	return (0);
 }
-

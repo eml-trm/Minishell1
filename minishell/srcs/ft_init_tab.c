@@ -6,10 +6,10 @@
 /*   By: etermeau <etermeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/13 18:12:00 by etermeau          #+#    #+#             */
-/*   Updated: 2015/03/13 18:12:02 by etermeau         ###   ########.fr       */
+/*   Updated: 2015/04/11 20:08:22 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include <stdlib.h>
 #include "ft_sh1.h"
 
@@ -35,8 +35,8 @@ char	**init_tab(t_env *list)
 	t_env	*tmp;
 
 	a = 0;
-	tab = (char **)malloc(sizeof(char *) * (count_chain(list) + 1));
-	tab[(count_chain(list) + 1)] = NULL;
+	if (!(tab = (char **)malloc(sizeof(char *) * (count_chain(list) + 1))))
+		code_erreur(0, NULL);
 	tmp = list;
 	while (tmp)
 	{
@@ -44,6 +44,7 @@ char	**init_tab(t_env *list)
 		a++;
 		tmp = tmp->next;
 	}
+	tab[a] = NULL;
 	return (tab);
 }
 
@@ -62,7 +63,7 @@ void	ft_free_tab(char **tab)
 
 void	ft_print_tab(char **tab)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (tab[i])

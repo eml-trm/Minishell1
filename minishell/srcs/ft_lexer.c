@@ -9,60 +9,59 @@
 /*   Updated: 2015/03/10 16:35:31 by etermeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "ft_sh1.h"
 
-char	**ft_split(char *line)
+static char *ft_malloc(char *str, char *line)
 {
-	int		i;
-	int		a;
-	int		b;
+	if (!(str = (char *)malloc(sizeof(char) * ft_strlen(line) + 1)))
+		code_erreur(0, NULL);
+	return (str);
+}
+
+char		**ft_split(char *line, int a, int b, int i)
+{
 	char	**tab;
 
-	i = 0;
-	a = 0;
-	b = 0;
-	tab = (char **)malloc(sizeof(char *) * ft_count_word(line) + 1);
-	tab[a] = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+	if (!(tab = (char **)malloc(sizeof(char *) * ft_count_word(line) + 1)))
+		code_erreur(0, NULL);
+	tab[a] = ft_malloc(tab[a], line);
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
 	while (line[i])
 	{
 		while (line[i] && line[i] != ' ' && line[i] != '\t')
 		{
-			tab[a][b++] = line[i];
+			tab[a][b++] = line[i++];
 			tab[a][b] = '\0';
-			i++;
 		}
 		if (line[i])
 		{
 			a++;
 			b = 0;
-			tab[a] = (char *)malloc(sizeof(char) * ft_strlen(line) + 1);
+			tab[a] = ft_malloc(tab[a], line);
 			while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 				i++;
 		}
-		else
-			i++;
 	}
 	tab[ft_count_word(line)] = NULL;
 	return (tab);
 }
 
-void	ft_print_lex(t_lex *lex)
+void		ft_print_lex(t_lex *lex)
 {
 	t_lex	*tmp;
 
 	tmp = lex;
-	ft_print_color(GREEN, "lex :\n", 1);
 	while (tmp)
 	{
 		ft_putstr(tmp->word);
 		ft_putchar('\n');
 		tmp = tmp->next;
 	}
-	ft_print_color(GREEN, "fin de lex \n", 1);
 }
 
-void	ft_lexer(char *line)
+void		ft_lexer(char *line)
 {
 	t_lex	*list;
 	char	**arg;
@@ -70,7 +69,7 @@ void	ft_lexer(char *line)
 
 	i = 0;
 	list = NULL;
-	arg = ft_split(line);
+	arg = ft_split(line, 0, 0, 0);
 	while (arg[i])
 	{
 		ft_add_lex(&list, arg[i]);
